@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertising Proposal: Meet iCheez & ProntoApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Professional Blue -->
+    <!-- Application Structure Plan: A single-page, scrolling application with a clear narrative flow. It starts with the high-level objective, details the package inclusions in interactive cards, then uses a toggle to show brand-specific benefits (the core interaction). It concludes with expected outcomes (visualized with a chart), pricing, and next steps. This structure guides the client logically from the 'what' to the 'why it's for me' and finally to the 'how to start', making the proposal easy to digest and act upon. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Package Inclusions -> Goal: Organize -> Viz/Method: Interactive HTML/CSS cards -> Interaction: On-click expansion (simulated via focus) -> Justification: Breaks down dense info into manageable, user-triggered chunks.
+        - Report Info: Brand-specific benefits -> Goal: Compare/Inform -> Viz/Method: Dynamic content block with JS -> Interaction: User clicks a brand toggle (button) -> Justification: Creates a personalized feel and directly compares the value for each brand, which is the central point of the proposal.
+        - Report Info: Expected Outcomes -> Goal: Inform/Impact -> Viz/Method: Bar Chart (Chart.js/Canvas) -> Interaction: Static visualization -> Justification: Translates qualitative outcomes into a quantitative-looking visual, adding a sense of tangible value and growth.
+        - Report Info: Next Steps -> Goal: Organize -> Viz/Method: Styled HTML list -> Interaction: Static -> Justification: Clearly and simply outlines the action plan.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB;
+            color: #1F2937;
+        }
+        .brand-toggle-btn {
+            transition: all 0.3s ease-in-out;
+        }
+        .brand-toggle-btn.active {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
+        }
+        .service-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .section-title {
+            border-bottom: 2px solid #3B82F6;
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-800">Canadian Business Club</div>
+            <div>
+                <a href="#pricing" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Get Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        
+        <section id="objective" class="text-center mb-20">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">A Unified Growth Strategy</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">To enhance the digital presence of <span class="font-semibold text-blue-500">Meet iCheez</span> and <span class="font-semibold text-blue-500">ProntoApp</span>, drive engagement, and build brand trust under our all-inclusive <strong class="font-bold">$1000/month/brand Premium Growth Package</strong>.</p>
+        </section>
+
+        <section id="package" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title mx-auto">What's Included in the Package</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">1. Social Media Management</h3>
+                    <p class="text-gray-600">We manage Facebook & Instagram for each brand, creating a consistent voice and posting schedule with 10 custom posts/stories per brand monthly.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">2. Content Creation</h3>
+                    <p class="text-gray-600">Custom-designed visuals and compelling, hook-driven copy that matches your unique brand tone—fun for iCheez, modern for ProntoApp.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">3. Content Idea Generation</h3>
+                    <p class="text-gray-600">A monthly content calendar with fresh themes based on seasonal trends, business events, and user-generated content opportunities.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">4. One-Time SEO Optimization</h3>
+                    <p class="text-gray-600">A basic SEO audit, keyword recommendations for your niche, and an easy-to-implement action plan for each website.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">5. Basic Paid Ads Management</h3>
+                    <p class="text-gray-600">One campaign setup per month (per brand) on Meta or Google, with audience targeting and budget suggestions to optimize spend.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold mb-2">6. Website Included</h3>
+                    <p class="text-gray-600">If needed, a 1-page, mobile-first, conversion-optimized website for each brand, with CTA integration and hosting guidance.</p>
+                </div>
+                <div class="service-card bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-3">
+                    <h3 class="text-xl font-bold mb-2">7. Influencer Marketing Consultation</h3>
+                    <p class="text-gray-600">We help identify relevant local micro-influencers and provide strategic advice on collaboration types like shoutouts, reels, and giveaways.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="brand-focus" class="mb-20 bg-white p-8 rounded-lg shadow-lg">
+            <h2 class="text-3xl font-bold text-center mb-4 section-title mx-auto">Why This is Perfect for You</h2>
+            <p class="text-center text-gray-600 mb-8">This package is designed to deliver tailored results for both of your unique brands. Click below to see how our strategy adapts to each one.</p>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button id="icheez-btn" class="brand-toggle-btn active text-lg font-semibold py-3 px-6 rounded-lg border border-gray-300">🍕 Meet iCheez</button>
+                <button id="pronto-btn" class="brand-toggle-btn text-lg font-semibold py-3 px-6 rounded-lg border border-gray-300">📱 ProntoApp</button>
+            </div>
+            <div id="brand-details" class="grid md:grid-cols-2 gap-6 text-center">
+            </div>
+        </section>
+        
+        <section id="outcomes" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12 section-title mx-auto">Your Expected Outcomes</h2>
+             <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-2xl mr-4">✔</span>
+                        <p class="text-gray-700">A <span class="font-semibold">consistent, recognizable brand presence</span> across all digital platforms.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-2xl mr-4">✔</span>
+                        <p class="text-gray-700">More <span class="font-semibold">engagement on socials</span> and increased traffic to your website and app.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-2xl mr-4">✔</span>
+                        <p class="text-gray-700">Improved <span class="font-semibold">discoverability on search engines</span> and social media.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-2xl mr-4">✔</span>
+                        <p class="text-gray-700">Professional, high-quality content that <span class="font-semibold">reflects your true value</span>.</p>
+                    </div>
+                     <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-2xl mr-4">✔</span>
+                        <p class="text-gray-700">Ongoing guidance and expert partnership—<span class="font-semibold">you're not doing it alone</span>.</p>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-center text-gray-600 mb-4">Visualizing your growth in key areas:</p>
+                    <div class="chart-container">
+                        <canvas id="outcomesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="text-center bg-blue-500 text-white p-10 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-bold mb-4">Ready to Grow?</h2>
+            <p class="text-5xl font-extrabold mb-4">$1,000 / month <br> <span class="text-3xl">per brand</span></p>
+            <p class="mb-6">No hidden fees. Everything in the package is included. <br><small>(Ad spend and influencer payments are separate.)</small></p>
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold mb-4">Next Steps</h3>
+                <ol class="list-decimal list-inside inline-block text-left text-lg space-y-2">
+                    <li>Schedule an onboarding meeting.</li>
+                    <li>Complete our guided brand brief.</li>
+                    <li>Receive your first content calendar in 5-7 days.</li>
+                </ol>
+            </div>
+            <button onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSeFZqT7h-12vcSZvljvLxcHB-p2k2OnYexvjNDjkPdVdu1WCw/viewform?usp=dialog'" class="mt-8 bg-white text-blue-500 font-bold py-3 px-8 rounded-lg text-xl hover:bg-gray-100 transition duration-300 shadow-md">Let's Make Your Brand Unforgettable 🚀</button>
+        </section>
+
+    </main>
+    
+    <footer class="text-center py-6 mt-12 border-t">
+        <p class="text-gray-500">&copy; 2025 Canadian Business Club. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const icheezBtn = document.getElementById('icheez-btn');
+            const prontoBtn = document.getElementById('pronto-btn');
+            const brandDetails = document.getElementById('brand-details');
+
+            const brandData = {
+                icheez: [
+                    { title: 'Visual Social Content', text: '🍕 Showcase mouth-watering food visuals, new menu items, and special promotions.' },
+                    { title: 'Local Engagement', text: '🎯 Target foodies and hungry customers in your specific delivery zones and city.' },
+                    { title: 'SEO Boost', text: '📍 Improve local discovery so people searching for "pizza near me" find you first.' },
+                    { title: 'Paid Ads & Influencers', text: '💰 Use food bloggers and targeted ads to directly boost online and in-store orders.' }
+                ],
+                pronto: [
+                    { title: 'Visual Social Content', text: '📱 Feature sleek app updates, user benefits, and partnership announcements.' },
+                    { title: 'Local Engagement', text: '🎯 Target users in need of fast, reliable delivery solutions and local businesses.' },
+                    { title: 'SEO Boost', text: '📍 Help your app rank for key services and partnership-related search terms.' },
+                    { title: 'Paid Ads & Influencers', text: '💰 Boost app downloads and attract new restaurant partners with tech-focused ads.' }
+                ]
+            };
+
+            function updateBrandDetails(brand) {
+                brandDetails.innerHTML = '';
+                brandData[brand].forEach(item => {
+                    const detailDiv = document.createElement('div');
+                    detailDiv.className = 'bg-gray-50 p-4 rounded-lg';
+                    detailDiv.innerHTML = `<h4 class="text-lg font-semibold text-blue-600 mb-1">${item.title}</h4><p class="text-gray-600">${item.text}</p>`;
+                    brandDetails.appendChild(detailDiv);
+                });
+            }
+
+            icheezBtn.addEventListener('click', () => {
+                icheezBtn.classList.add('active');
+                prontoBtn.classList.remove('active');
+                updateBrandDetails('icheez');
+            });
+
+            prontoBtn.addEventListener('click', () => {
+                prontoBtn.classList.add('active');
+                icheezBtn.classList.remove('active');
+                updateBrandDetails('pronto');
+            });
+
+            updateBrandDetails('icheez');
+
+            const ctx = document.getElementById('outcomesChart').getContext('2d');
+            const outcomesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Brand Presence', 'Social Engagement', 'Search Discovery'],
+                    datasets: [{
+                        label: 'Current State',
+                        data: [30, 40, 25],
+                        backgroundColor: 'rgba(156, 163, 175, 0.5)',
+                        borderColor: 'rgba(156, 163, 175, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Projected Growth',
+                        data: [85, 90, 75],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
